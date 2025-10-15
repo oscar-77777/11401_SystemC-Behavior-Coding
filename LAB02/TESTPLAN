@@ -1,0 +1,112 @@
+TEST PLAN for pointers.c
+=================================================
+
+Program: pointers.c
+Target Executable: ./pointers <N>
+
+-------------------------------------------------
+1. Objective
+-------------------------------------------------
+This document defines the verification strategy and validation procedures for the
+program pointers.c. The goal is to ensure the implementation strictly adheres to
+the requirements stated in Assignment 2 (Pointers section). Specifically, to verify:
+
+1. Correct memory allocation using malloc(argv[1]) with atoi() conversion.
+2. Proper byte-by-byte filling pattern: 'A'..'Z' then '1'..'9', repeating cyclically.
+3. Exact printing of N bytes via one printf (no reliance on '\0').
+4. Iteration over allocated memory as int* using a while loop, printing "<value> : <value-1>".
+5. Guard preventing segmentation faults for any input N >= 0.
+
+-------------------------------------------------
+2. Test Environment
+-------------------------------------------------
+Compiler: gcc (Linux/macOS/WSL) or MinGW (Windows)
+Language Standard: C11 (-std=c11)
+Build Command:
+    Linux/macOS: gcc -std=c11 -O2 -Wall -Wextra -o pointers pointers.c
+    Windows:     gcc -std=c11 -O2 -Wall -Wextra -o pointers.exe pointers.c
+Platform: 32-bit or 64-bit machine
+Runtime: Terminal or PowerShell
+
+-------------------------------------------------
+3. Test Strategy
+-------------------------------------------------
+- Black-box testing to verify outputs against expected results.
+- Boundary value testing: N=0, 1, small multiples of 4, large non-multiples.
+- Stress testing for large allocations (e.g., N>=1000).
+- Guard validation for segmentation fault prevention.
+- Visual inspection of pattern sequence correctness.
+
+-------------------------------------------------
+4. Test Cases
+-------------------------------------------------
+
+Case 1: Zero Allocation
+Command: ./pointers 0
+Expected: Empty first line, no int lines, clean exit.
+
+Case 2: Single Byte Allocation
+Command: ./pointers 1
+Expected: Prints "A" only; no int lines.
+
+Case 3: One Pattern Cycle
+Command: ./pointers 35
+Expected: "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"; 8 int lines (floor(35/4)).
+
+Case 4: Overflow Cycle
+Command: ./pointers 36
+Expected: Ends with 'A'; 9 int lines.
+
+Case 5: 128 Bytes (Multiple of 4)
+Command: ./pointers 128
+Expected: 128 bytes printed; 32 int lines.
+
+Case 6: Large Non-Multiple (1001 Bytes)
+Command: ./pointers 1001
+Expected: 1001 characters, 250 int lines, no crash.
+
+Case 7: Negative Input
+Command: ./pointers -1
+Expected: Prints "Negative size is not allowed." and exits gracefully.
+
+-------------------------------------------------
+5. Validation Commands
+-------------------------------------------------
+Check output length:
+    ./pointers 36 | head -n1 | wc -c   # Expect 37 (36 chars + newline)
+Check integer lines:
+    ./pointers 36 | tail -n +2 | wc -l # Expect 9
+Pattern inspection:
+    ./pointers 70 | head -n1
+Memory safety:
+    valgrind --leak-check=full ./pointers 1001
+
+-------------------------------------------------
+6. Pass/Fail Criteria
+-------------------------------------------------
+Functional Correctness: Output matches specification.
+Boundary Handling: Works for all N >= 0.
+Robustness: No segmentation fault, invalid read, or memory leak.
+Pattern Accuracy: Exact sequence A-Z, 1-9 repeating.
+
+-------------------------------------------------
+7. Summary
+-------------------------------------------------
+| Test ID  | N    | Expected Behavior                         | Status |
+|----------|------|-------------------------------------------|--------|
+| TC-01    | 0    | Empty + clean exit                        | PASS   |
+| TC-02    | 1    | "A" only                                  | PASS   |
+| TC-03    | 35   | Full pattern + 8 ints                     | PASS   |
+| TC-04    | 36   | Pattern rollover + 9 ints                 | PASS   |
+| TC-05    | 128  | 32 int lines                              | PASS   |
+| TC-06    | 1001 | 250 int lines, no crash                   | PASS   |
+| TC-07    | -1   | Graceful error message                    | PASS   |
+
+-------------------------------------------------
+8. Conclusion
+-------------------------------------------------
+All test cases passed successfully. The implementation fully complies with the
+Assignment 2 specification. No segmentation faults, memory leaks, or incorrect
+outputs were observed.
+
+Verdict: Implementation verified and ready for submission.

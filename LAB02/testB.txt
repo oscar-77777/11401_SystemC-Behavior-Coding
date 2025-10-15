@@ -1,0 +1,20 @@
+The fox in the fog -%&9 catch me if you can this line tests symbols vs words
+Symbols !@#$%^&*()-_=+[]{};:',.<>/?`~ are NOT word separators except space and newline
+UPPER lower CamelCase snake_case MIXED123 and digits 13579 24680 appear
+Lines end with newline to test counting accurately across many paragraphs
+The fox in the fog -%&9 catch me if you can this line tests symbols vs words
+Symbols !@#$%^&*()-_=+[]{};:',.<>/?`~ are NOT word separators except space and newline
+UPPER lower CamelCase snake_case MIXED123 and digits 13579 24680 appear
+Lines end with newline to test counting accurately across many paragraphs
+The fox in the fog -%&9 catch me if you can this line tests symbols vs words
+Symbols !@#$%^&*()-_=+[]{};:',.<>/?`~ are NOT word separators except space and newline
+UPPER lower CamelCase snake_case MIXED123 and digits 13579 24680 appear
+Lines end with newline to test counting accurately across many paragraphs
+The fox in the fog -%&9 catch me if you can this line tests symbols vs words
+Symbols !@#$%^&*()-_=+[]{};:',.<>/?`~ are NOT word separators except space and newline
+UPPER lower CamelCase snake_case MIXED123 and digits 13579 24680 appear
+Lines end with newline to test counting accurately across many paragraphs
+The fox in the fog -%&9 catch me if you can this line tests symbols vs words
+Symbols !@#$%^&*()-_=+[]{};:',.<>/?`~ are NOT word separators except space and newline
+UPPER lower CamelCase snake_case MIXED123 and digits 13579 24680 appear
+Lines end with newline t
